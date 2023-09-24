@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Components/InputComponent.h"
+#include "Camera/CameraComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Character.h"
 #include "CharacterOne.generated.h"
 
@@ -30,4 +32,28 @@ public:
 private:
 	void HorizontalMove(float value);
 	void VerticalMove(float value);
+	//void HorizontalRot(float value);
+	//void VerticalRot(float value);
+
+	void CheckJump();
+
+	void Zoom(float value);
+	//void Switch();
+
+	UPROPERTY()
+		bool jumping;
+
+	UPROPERTY()
+		bool firstPerson;
+
+	UPROPERTY()
+		UCameraComponent* cam;
+
+	UPROPERTY()
+		USpringArmComponent* arm;
+
+	void SwitchCharacter();
+
+	UPROPERTY(EditAnywhere, Category = "Possession")
+		ACharacterOne* CharacterTwo;
 };
