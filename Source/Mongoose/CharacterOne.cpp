@@ -20,7 +20,7 @@ ACharacterOne::ACharacterOne()
 	arm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	arm->AttachTo(RootComponent);
 	arm->TargetArmLength = 500.f;
-	arm->SetRelativeRotation(FRotator(-45.f, 90.f, 0.f));
+	arm->SetRelativeRotation(FRotator(-45.f, -90.f, 0.f));
 	// Camera Lag setup
 	arm->bEnableCameraLag = true;
 	arm->CameraLagSpeed = 2; // how quickly the camera lag reaches its target
