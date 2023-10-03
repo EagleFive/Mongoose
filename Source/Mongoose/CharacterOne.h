@@ -35,10 +35,12 @@ private:
 	//void HorizontalRot(float value);
 	//void VerticalRot(float value);
 
+	void SwitchCharacter();
+
 	void CheckJump();
 
 	void Zoom(float value);
-	//void Switch();
+	//void SwitchCamera();
 
 	UPROPERTY()
 		bool jumping;
@@ -52,8 +54,6 @@ private:
 	UPROPERTY()
 		USpringArmComponent* arm;
 
-	void SwitchCharacter();
-
 	UPROPERTY(EditAnywhere, Category = "Possession")
-		ACharacterOne* CharacterTwo;
+		ACharacterOne* otherCharacter;
 };

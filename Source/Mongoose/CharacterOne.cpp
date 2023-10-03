@@ -14,12 +14,12 @@ ACharacterOne::ACharacterOne()
 	//bUseControllerRotationYaw = false;
 
 	cam = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
-	//cam->AttachTo(RootComponent);
+	cam->AttachTo(RootComponent);
 
 	// Camera spring arm
 	arm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	arm->AttachTo(RootComponent);
-	arm->TargetArmLength = 500.f;
+	arm->TargetArmLength = 400.f;
 	arm->SetRelativeRotation(FRotator(-45.f, -90.f, 0.f));
 	// Camera Lag setup
 	arm->bEnableCameraLag = true;
@@ -71,9 +71,9 @@ void ACharacterOne::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacterOne::CheckJump);
 	InputComponent->BindAction("Jump", IE_Released, this, &ACharacterOne::CheckJump);
-	//InputComponent->BindAction("ChangeCamera", IE_Pressed, this, &ACharacterOne::Switch);
-	InputComponent->BindAction("CharacterSwitch", IE_Pressed, this, &ACharacterOne::SwitchCharacter);
-}
+	//InputComponent->BindAction("ChangeCamera", IE_Pressed, this, &ACharacterOne::SwitchCamera);
+	InputComponent->BindAction("Switch", IE_Pressed, this, &ACharacterOne::SwitchCharacter);
+;}
 
 /*
  void ACharacterOne::HorizontalRot(float value)
@@ -116,20 +116,21 @@ void ACharacterOne::Zoom(float value)
 	if (value)
 	{
 		float temp = arm->TargetArmLength + (value * -20);
-		if (temp < 500 && temp > 140)
+		if (temp < 800 && temp > 140)
 		{
 			arm->TargetArmLength = temp;
 		}
 	}
 }
 
+
 /*
-void ACharacterOne::Switch()
+* void ACharacterOne::SwitchCamera()
 {
 	if (firstPerson)
 	{
 		arm->TargetArmLength = 500.f;
-		arm->SetRelativeRotation(FRotator(-45.f, 90.f, 0.f));
+		arm->SetRelativeRotation(FRotator(-45.f, -90.f, 0.f));
 		cam->SetRelativeRotation(FRotator(0,0,0));
 		cam->AttachTo(arm, USpringArmComponent::SocketName);
 		firstPerson = false;
@@ -141,6 +142,7 @@ void ACharacterOne::Switch()
 	}
 }
 */
+
 
 void ACharacterOne::CheckJump()
 {
@@ -172,13 +174,13 @@ void ACharacterOne::VerticalMove(float value)
 
 void ACharacterOne::SwitchCharacter()
 {
-	if (CharacterTwo && GetController())
+	if (otherCharacter && GetController())
 	{
 		AController* temp = GetController();
 		if (temp)
 		{
 			temp->UnPossess();
-			temp->Possess(CharacterTwo);
+			temp->Possess(otherCharacter);
 		}
 	}
 }
